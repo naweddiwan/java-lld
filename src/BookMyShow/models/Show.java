@@ -5,4 +5,19 @@ public class Show {
     private Movie movie;
     private Screen screen;
     private int startTime;
+
+    public Show(int id, Movie movie, Screen screen, int startTime) {
+        this.id = id;
+        this.movie = movie;
+        this.screen = screen;
+        this.startTime = startTime;
+    }
+
+    public int getStartTime() {
+        return startTime;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
 }
