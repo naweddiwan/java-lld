@@ -20,4 +20,12 @@ public class Show {
     public Movie getMovie() {
         return movie;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
 }

@@ -2,6 +2,7 @@ package BookMyShow.services;
 
 import BookMyShow.models.City;
 import BookMyShow.models.Movie;
+import BookMyShow.models.Show;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,5 +27,9 @@ public class MovieService {
 
     public List<Movie> getAllMovies() {
         return this.movieList;
+    }
+
+    public List<Movie> getAllMoviesInCity(City city){
+        return cityToMoviesMap.get(city);
     }
 }
