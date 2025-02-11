@@ -9,9 +9,9 @@ import foodDeliverySystem.permissions.PermissionFactory;
 import java.util.List;
 
 public class CartManager {
-    public List<CartItem> getUserCart(User user) {
-
-    }
+//    public List<CartItem> getUserCart(User user) {
+//
+//    }
 
     public  void addItemToCart(User user, FoodItem foodItem){
         Permission permission = PermissionFactory.getAddToCartPermission(user, foodItem);
@@ -28,5 +28,5 @@ public class CartManager {
 
     }
 
-    private boolean isFoodItemFromSameRestaurant()
+   // private boolean isFoodItemFromSameRestaurant();
 }

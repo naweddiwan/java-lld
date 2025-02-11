@@ -1,5 +1,7 @@
 package SplitWise.models.expense;
+import lombok.Getter;
 
+@Getter
 public class Balance {
     private double amountOwed;
     private double amountGetBack;
@@ -9,13 +11,6 @@ public class Balance {
         this.amountGetBack = 0.0;
     }
 
-    public double getAmountOwed() {
-        return amountOwed;
-    }
-
-    public double getAmountGetBack() {
-        return amountGetBack;
-    }
 
     public void setAmountOwed(double amountOwed) {
         this.amountOwed = amountOwed;

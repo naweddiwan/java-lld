@@ -26,6 +26,7 @@ public class RestaurantSearcherAPI {
         if(starRating != null){
             filters.add(new StarRatingFilter(starRating));
         }
-        return new RestaurantSearcher(restaurantName, filters).search();
+//        return new RestaurantSearcher().search(restaurantName, res);
+        return null;
     }
 }
