@@ -1,4 +1,4 @@
-package SplitWise.models;
+package SplitWise.models.expense;
 
 public class Balance {
     private double amountOwed;

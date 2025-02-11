@@ -1,9 +1,15 @@
 package BookMyShow.models;
 
 import BookMyShow.enums.BookingStatus;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Booking {
     private int id;
     private Show show;

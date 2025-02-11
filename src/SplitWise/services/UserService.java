@@ -1,8 +1,11 @@
 package SplitWise.services;
 
+import SplitWise.enums.SplitType;
 import SplitWise.models.*;
-import SplitWise.models.split.Split;
-import SplitWise.models.split.SplitEntry;
+import SplitWise.models.expense.Balance;
+import SplitWise.models.expense.Expense;
+import SplitWise.models.expense.Split;
+import SplitWise.models.expense.SplitEntry;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,31 +33,36 @@ public class UserService {
         return user.getFriends();
     }
 
-    public boolean updateBalanceSheet(User createdByUser, Split split){
+    public boolean updateBalanceSheet(User createdByUser, Expense expense){
+        Split split = expense.getSplit();
         List<SplitEntry> splitEntries = split.getSplitEntryList();
         UserBalanceSheet userBalanceSheet =  createdByUser.getUserBalanceSheet();
-        double getBackFromSplit = 0.0;
-        for(SplitEntry se: splitEntries) {
-            User friend = users.get(se.getUserID());
-            double amount = se.getAmount();
-            getBackFromSplit += amount;
+        int splitsLength = splitEntries.size();
 
-            addSplit(createdByUser, friend, se);
-
+        if(split.getSplitType() == SplitType.EQUAL) {
+            // Equal Split
+            double splitAmount = expense.getAmount()/ (splitsLength + 1);
+            for(SplitEntry se: splitEntries) {
+                User friend = users.get(se.getUserID());
+                addEqualSplit(createdByUser, friend, splitAmount);
+            }
+            userBalanceSheet.setTotalGetBack(userBalanceSheet.getTotalGetBack() + (expense.getAmount() - splitAmount));
+            return true;
         }
-        userBalanceSheet.setTotalGetBack(userBalanceSheet.getTotalGetBack() + getBackFromSplit);
-        return true;
+        return false;
     }
 
-    public void addSplit(User userCreated, User friend, SplitEntry se){
+    public void addEqualSplit(User userCreated, User friend, double splitAmount){
         UserBalanceSheet friendBalanceSheet = friend.getUserBalanceSheet();
         UserBalanceSheet userBalanceSheet =  userCreated.getUserBalanceSheet();
 
         Balance userFriendBalance = friendBalanceSheet.getFriendBalanceSheet().get(userCreated);
-        userFriendBalance.setAmountOwed(userFriendBalance.getAmountOwed() + se.getAmount());
+        userFriendBalance.setAmountOwed(userFriendBalance.getAmountOwed() + splitAmount);
+
+        friendBalanceSheet.setTotalOwed(friendBalanceSheet.getTotalOwed() + splitAmount);
 
         Balance friendBalance = userBalanceSheet.getFriendBalanceSheet().get(friend);
-        friendBalance.setAmountOwed(friendBalance.getAmountOwed() + se.getAmount());
+        friendBalance.setAmountOwed(friendBalance.getAmountOwed() + splitAmount);
     }
 
     public UserBalanceSheet getUserBalanceSheet(User user) {

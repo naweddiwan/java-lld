@@ -1,5 +1,7 @@
 package SplitWise.models;
 
+import SplitWise.models.expense.Balance;
+
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package SplitWise.models.split;
+package SplitWise.models.expense;
 
 public class SplitEntry {
     private int userID;
@@ -14,6 +14,11 @@ public class SplitEntry {
         this.percentage = percentage;
         this.userID = userID;
     }
+
+    public SplitEntry(int userID){
+        this.userID = userID;
+    }
+
 
     public int getUserID() {
         return userID;

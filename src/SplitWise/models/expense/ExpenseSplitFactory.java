@@ -1,4 +1,4 @@
-package SplitWise.models.split;
+package SplitWise.models.expense;
 
 import SplitWise.enums.SplitType;
 

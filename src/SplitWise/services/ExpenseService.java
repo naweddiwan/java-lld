@@ -2,9 +2,10 @@ package SplitWise.services;
 
 import BookMyShow.exceptions.FriendNotFoundException;
 import SplitWise.models.*;
-import SplitWise.models.split.ExpenseSplit;
-import SplitWise.models.split.ExpenseSplitFactory;
-import SplitWise.models.split.Split;
+import SplitWise.models.expense.Expense;
+import SplitWise.models.expense.ExpenseSplit;
+import SplitWise.models.expense.ExpenseSplitFactory;
+import SplitWise.models.expense.Split;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,9 @@ public class ExpenseService {
         this.expenseSplitFactory = new ExpenseSplitFactory();
     }
 
-    public Expense addExpenseAgainstAFriend(User createdByUser, double amount, User friend, Split split, String desc) {
+    public Expense addExpenseAgainstAFriend(User createdByUser, User friend, Expense expense) {
+        Split split = expense.getSplit();
+        double amount = expense.getAmount();
         // 1. Check if friends
         List<User> userFriends = userService.getUserFriends(createdByUser);
         if(!userFriends.contains(friend)){
@@ -37,11 +40,10 @@ public class ExpenseService {
         }
 
         // add expense
-        // update balance sheets of the users
-        Expense newExpense = new Expense(amount, desc, createdByUser);
-        expenses.put(newExpense.getId(), newExpense);
-        userService.updateBalanceSheet(createdByUser, split);
-        return newExpense;
+        // update balance sheets of the user
+        expenses.put(expense.getId(), expense);
+        userService.updateBalanceSheet(createdByUser, expense);
+        return expense;
     }
 
     private Expense addExpenseAgainstAGroup(User createdByUser, double amount, Group group, Split split, String desc) {

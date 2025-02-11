@@ -7,6 +7,9 @@ import BookMyShow.exceptions.SeatAlreadyBookedException;
 import BookMyShow.models.Booking;
 import BookMyShow.models.Seat;
 import BookMyShow.models.Show;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Data
+@AllArgsConstructor
 public class BookingService {
     Map<Integer, Booking> bookings;
 
@@ -28,7 +33,7 @@ public class BookingService {
         throw new NotFoundException("BookingID not found");
     }
 
-    public Booking createBooking(List<Seat> seats, int userID, Show show){
+    public synchronized Booking createBooking(List<Seat> seats, int userID, Show show){
         if(isAnySeatAlreadyBooked(seats, show)){
             throw new SeatAlreadyBookedException();
         }

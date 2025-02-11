@@ -3,20 +3,24 @@ package BookMyShow.services;
 import BookMyShow.models.City;
 import BookMyShow.models.Movie;
 import BookMyShow.models.Show;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MovieService {
-    Map<City, List<Movie>> cityToMoviesMap;
-    List<Movie> movieList;
 
-    public MovieService(){
-        cityToMoviesMap = new HashMap<>();
-        movieList = new ArrayList<>();
-    }
+    @Builder.Default
+    private Map<City, List<Movie>> cityToMoviesMap = new HashMap<>();
+    @Builder.Default
+    List<Movie> movieList = new ArrayList<>();
 
     public void addMovie(Movie movie, City city){
         movieList.add(movie);

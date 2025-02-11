@@ -27,10 +27,9 @@ public class User {
         return userBalanceSheet;
     }
 
-    public boolean addFriend(User user) {
+    public void addFriend(User user) {
         friends.put(user.getId(), user);
-        user.getUserBalanceSheet().addFriendInBalanceSheet(user);
-        return true;
+        userBalanceSheet.addFriendInBalanceSheet(user);
     }
 
     public List<User> getFriends() {
